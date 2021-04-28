@@ -1,12 +1,12 @@
 import { ref } from "@vue/reactivity";
 import { projectAuth } from "../firebase/config";
 
-// use the firebase auth to get user signed up and appear in the database
 const error = ref(null);
 
 const signup = async (displayName, email, password) => {
   error.value = null;
   try {
+    // use the firebase auth to get user signed up and appear in the database
     const res = await projectAuth.createUserWithEmailAndPassword(
       email,
       password
