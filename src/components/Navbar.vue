@@ -4,7 +4,7 @@
       <p>Hello there {{ user.displayName }}</p>
       <p class="email">Currently login as {{ user.email }}</p>
     </div>
-    <button @click="handleLogout">logout</button>
+    <button @click="handleLogout">Log out</button>
   </nav>
 </template>
 
