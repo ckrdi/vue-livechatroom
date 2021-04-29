@@ -14,11 +14,22 @@ const requireAuth = (to, from, next) => {
   }
 };
 
+//route guard for logged in user so they cannot see welcome page
+const requireNoAuth = (to, from, next) => {
+  let user = projectAuth.currentUser;
+  if (!user) {
+    next();
+  } else {
+    next({ name: "Chatroom" });
+  }
+};
+
 const routes = [
   {
     path: "/",
     name: "Welcome",
     component: Welcome,
+    beforeEnter: requireNoAuth,
   },
   {
     path: "/chatroom",
