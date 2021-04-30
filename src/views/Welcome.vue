@@ -3,12 +3,12 @@
     <h2>Welcome</h2>
     <div v-if="haveAccount">
       <h3>Log in</h3>
-      <LoginForm @login="enterChat" />
+      <LoginForm />
       <p>Don't have account? <span @click="toggleForm">Sign up here.</span></p>
     </div>
     <div v-else>
       <h3>Sign up</h3>
-      <SignupForm @signup="enterChat" />
+      <SignupForm />
       <p>Already have account? <span @click="toggleForm">Log in here</span></p>
     </div>
   </div>
@@ -19,6 +19,8 @@ import SignupForm from "../components/SignupForm.vue";
 import LoginForm from "../components/LoginForm.vue";
 import { ref } from "@vue/reactivity";
 import { useRouter } from "vue-router";
+import { watch } from "@vue/runtime-core";
+import getUser from "../composables/getUser";
 
 export default {
   components: {
@@ -27,17 +29,19 @@ export default {
   },
   setup() {
     const haveAccount = ref(true);
-    const router = useRouter();
-
     const toggleForm = () => {
       haveAccount.value = !haveAccount.value;
     };
 
-    const enterChat = () => {
-      router.push({ name: "Chatroom" });
-    };
+    const router = useRouter();
+    const { user } = getUser();
+    watch(user, () => {
+      if (user.value) {
+        router.push({ name: "Chatroom" });
+      }
+    });
 
-    return { haveAccount, toggleForm, enterChat };
+    return { haveAccount, toggleForm };
   },
 };
 </script>

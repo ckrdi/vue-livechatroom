@@ -18,7 +18,7 @@ import { computed, onUpdated, ref } from "@vue/runtime-core";
 
 export default {
   setup() {
-    const { documents, error } = getCollection("message");
+    const { documents, error } = getCollection("messages");
 
     const formattedDocs = computed(() => {
       if (documents.value) {

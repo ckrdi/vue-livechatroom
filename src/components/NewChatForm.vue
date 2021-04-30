@@ -18,7 +18,7 @@ export default {
   setup() {
     const message = ref("");
     const { user } = getUser();
-    const { error, addDoc } = useCollection("message");
+    const { error, addDoc } = useCollection("messages");
 
     const handleSubmit = async () => {
       const newChat = {
